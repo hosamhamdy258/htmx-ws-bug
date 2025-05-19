@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Flask + HTMX WS Demo</title>
+    <script src="/static/htmx.js"></script>
+    <script src="/static/ws.js"></script>
+</head>
+
+<body hx-ext="ws">
+    <h1>Groups</h1>
+
+    <div ws-connect="/connect">
+        <div id="form-container">
+            <form id="add_group" ws-send="addGroup" hx-swap="none">
+                <input type="text" name="name" placeholder="Group Name" required autocomplete="off">
+                <button type="submit">Add Group</button>
+            </form>
+        </div>
+    </div>
+
+    <table id="test_table" border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Group</th>
+            </tr>
+        </thead>
+        <tbody id="group_table_body">
+            {% for g in groups %}
+            <tr>
+                <td id="g{{ g.id }}_1">{{ g.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+
+</html>
